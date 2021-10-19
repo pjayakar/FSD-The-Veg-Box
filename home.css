@@ -63,6 +63,7 @@ body {
     left: 0;
     transform: none;
   }
+
 }
 h4{
   color: #c47266; 
@@ -199,6 +200,15 @@ img{
   clear: both;
   display: table;
 }
+.navbar-custom {
+  background-color:#588061;
+}
+/* Modify brand and text color */
+
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+  color: white;
+}
 footer {
   text-align: center;
   padding: 5px;
@@ -228,3 +238,4 @@ h2{
   color: #800000; text-align: center;
   font-weight: 100;
 }
+
