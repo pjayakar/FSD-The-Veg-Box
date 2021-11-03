@@ -1,0 +1,27 @@
+{% extends 'vegbox_app/header.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div style="background-color: rgb(238, 236, 236);">
+        <div style="padding-top: 30px;"></div>
+        <div style="background-color: white; padding-left: 10%; padding-top: 5%; padding-bottom: 5%; padding-right: 10%; margin-left: 30%; margin-right: 30%;" class="content-section">
+            <div class="centered">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Log In</legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button style="background-color: #588061; color: white; font-weight: bold;" class="btn btn-outline-info" type="submit">Login</button>
+                    </div>
+                </form>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div style="padding-top: 30px;"></div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends 'vegbox_app/header.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div style="background-color: rgb(238, 236, 236);">
+        <h2>You have been logged out</h2>
+        <div style="padding-top: 30px;"></div>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Log In Again</a>
+                </small>
+            </div>
+        <div style="padding-top: 30px;"></div>
+    </div>
+{% endblock content %}
