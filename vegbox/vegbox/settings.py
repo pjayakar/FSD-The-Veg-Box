@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'vegbox_app.apps.VegboxAppConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
+    'cart',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
