@@ -8,6 +8,7 @@ from django import forms
 
 from django.db import models
 from django import forms
+from django.db.models.fields.files import ImageField
 from django_countries.fields import CountryField
 from django.urls import reverse
 from django.conf import settings
@@ -105,7 +106,7 @@ class Product(models.Model):
     def save(self):
         super().save()
 
-        with Image.open(self.thumbnail.path) as img:
+        with ImageField.open(self.thumbnail.path) as img:
             if img.height > self.IMG_DIMENSION or img.width > self.IMG_DIMENSION:
                 img.thumbnail((self.IMG_DIMENSION, self.IMG_DIMENSION))
                 img.save(self.thumbnail.path)

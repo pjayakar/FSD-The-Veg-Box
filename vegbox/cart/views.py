@@ -1,16 +1,30 @@
 from django.contrib import messages
-from django.shortcuts import redirect, get_object_or_404
+from django.views.generic import ListView, DetailView
+from .models import Product
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators  import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.utils.html import strip_tags
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import FormView
 from django.http import JsonResponse
+from django.utils.crypto import get_random_string
+from django.views.generic.edit import UpdateView
 
-from .models import Product
-from .models import Order, OrderItem
+from .models import Payment, Product
+from .models import Order, OrderItem, ShippingAddress, ShippingAddressForm, PromotionCodeForm,PromotionCode
+class HomePage(ListView):
+    model = Product
+    template_name = 'products/home.html'
+    context_object_name = 'products'
+    paginate_by = 4
 
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'products/product_details.html'
 class CheckoutView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         order = Order.objects.filter(user=self.request.user, ordered=False).first()
@@ -58,12 +72,12 @@ class PaymentView(LoginRequiredMixin, View):
         order = Order.objects.filter(user=self.request.user, ordered=False).first()
         token = self.request.POST.get('stripeToken')
         try:
-            charge = stripe.Charge.create(
+            charge = strip_tags.Charge.create(
               amount=round(float(order.get_total_amount() * 100)),
               currency="usd",
               source=token
             )
-        except stripe.error.CardError:
+        except strip_tags.error.CardError:
             messages.error(self.request, 'Payment could not be made')
             return redirect('sumiaproducts:home-page')
         except Exception:

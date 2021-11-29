@@ -1,8 +1,5 @@
 from django.urls import path
-from .views import increase_product_in_cart, remove_from_cart, decrease_product_in_cart, CartDetailView, AddToCartAjax
-from .views import HomePage
-from .views import ProductDetailView
-from . import views
+from cart.views import ProductDetailView, CheckoutView, PaymentView, PromoCodeView, checkout_success, increase_product_in_cart, remove_from_cart, decrease_product_in_cart, CartDetailView, AddToCartAjax
 app_name = 'core'
 
 # app_name = "cart"
