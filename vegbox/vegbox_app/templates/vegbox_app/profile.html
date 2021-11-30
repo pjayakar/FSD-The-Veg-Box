@@ -1,0 +1,23 @@
+{% extends 'vegbox_app/header.html' %}
+{% block content %}
+{% load static %}
+<div style="padding: 20px;"></div>
+{{ message }}
+    <div class="row">
+    {% for object in object_list %}
+        <div class="col-sm-3">
+            <p>{{ object.name }}</p>
+            <p>Price: ${{ object.price }}</p>
+            <!-- {% if object in user.profile.ebooks.all %}
+            You own this
+             {% elif object in current_order_products %}
+            <a href="{% url 'order_summary' %}" class="btn btn-warning">Go to Cart</a>
+            {% else %}
+            <a href="{% url 'vegbox_app/add_to_cart' object.id %}" class="btn btn-warning">Add to Cart</a>
+            {% endif %} --> -->
+        </div>
+    {% endfor %}
+    </div>
+<div style="padding: 20px;"></div>
+
+{% endblock %} 

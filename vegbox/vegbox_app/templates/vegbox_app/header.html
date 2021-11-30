@@ -15,11 +15,12 @@
 <body style="background-color:white;">
 <!-- Logo -->
 <div class="centered">
-  <img style="width: 1260px;" src="{% static 'vegbox_app/heading.jpg' %}" alt="">
+  <img style="width: 100%;" src="{% static 'vegbox_app/heading.jpg' %}" alt="">
 </div>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
     <ul class="navbar-nav">
+      {% if user.is_authenticated %}
       <li class="nav-item">
         <a style="color: white;" class="nav-link" href="{% url 'vegbox-home' %}">HOME</a>
       </li>
@@ -37,13 +38,13 @@
         
 
         
-        {% if user.is_authenticated %}
+       
           <li class="nav-item"><a style="color: white;" class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-in-alt"></i>  Logout</a></li>
-          <li class="nav-item"><a style="color: white;" class="nav-link" href="#"><i class="fas fa-shopping-cart"></i>  Cart</a></li>
+          <li class="nav-item"><a style="color: white;" class="nav-link" href="{% url 'order_summary' %}"><i class="fas fa-shopping-cart"></i>  Cart</a></li>
         {% else %}
+        <ul class="navbar-nav ml-auto"></ul>
           <li class="nav-item"><a style="color: white;" class="nav-link" href="{% url 'register' %}"><i class="fas fa-user"></i>  Sign Up</a></li>
           <li class="nav-item"><a style="color: white;" class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i>  Login</a></li>
-          <li class="nav-item"><a style="color: white;" class="nav-link" href="#"><i class="fas fa-shopping-cart"></i>  Cart</a></li>       
         {% endif %}
       </ul>
     </div>

@@ -1,63 +1,68 @@
-{% extends "home.html" %}
-{% load static %}
+{% extends 'vegbox_app/header.html' %}
 {% block content %}
-    <div class="container my-4">
-        <h2 class="text-center my-4">Your Cart</h2>
-        {% include "products/messages.html" %}
-        <table class="table">
-            {% if order.items.all %}
-            <thead>
-                <tr>
-                    <th scope="col">Product</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Price</th>
-                    <th scope="col" class="text-center">Amount</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            {% endif %}
-            <tbody>
-                {% for item in order.items.all %}
-                    <tr>
-                        <td>{{ item.item.name }}</td>
-                        <td>
-                            <a href="{% url 'sumiacart:decrease-product-in-cart' item.item.id %}"><span class="badge badge-dark mr-2"><i class="fas fa-minus"></i></span></a>
-                            <span>{{ item.quantity }}</span>
-                            <a href="{% url 'sumiacart:increase-product-in-cart' item.item.id %}"><span class="badge badge-dark ml-2"><i class="fas fa-plus"></i></span></a>
-                        </td>
-                        <td>{{ item.item.price|floatformat:2 }} $</td>
-                        <td class="text-center">{{ item.get_total|floatformat:2 }} $</td>
-                        <td class="text-right">
-                            <a class="btn btn-danger" href="{% url 'sumiacart:remove-from-cart' item.item.id %}"><i class="far fa-trash-alt"></i></a>
-                        </td>
-                    </tr>
-                {% empty %}
-                    <div class="alert alert-info" role="alert">
-                        The cart is empty
-                    </div>
-                {% endfor %}
-                {% if order.promo_code_applied %}
-                    <tr>
-                        <td colspan="3"></td>
-                        <td class="text-center text-success">
-                            Discount: <span class="font-weight-bold">-{{ order.promo_code_discount|floatformat:2 }} $</span>
-                        </td>
-                    </tr>
-                {% endif %}
-                <tr>
-                    <td colspan="3">
-                        <a class="btn btn-warning" href="{% url 'sumiaproducts:home-page' %}">Back to Home Page</a>
-                    </td>
-                    {% if order.items.all %}
-                    <td class="text-center">
-                        Total: <span class="font-weight-bold ml-1">{{ order.get_total_amount|floatformat:2 }} $</span>
-                    </td>
-                    <td>
-                        <a class="btn btn-info btn-block" href="{% url 'sumiacheckout:checkout' %}">Checkout</a>
-                    </td>
-                    {% endif %}
-                </tr>
-            </tbody>
-        </table>
+{% load static %}
+<div style="padding: 20px;"></div>
+<section>
+    <div style="padding-left: 5%; padding-right: 5%;" class="row">
+     <table class="table table-hover table-bordered text-center">
+       <tr class="text-center">
+         <th>no.</th>
+         <th>Item</th>
+         <th>Price</th>
+       </tr>
+       {% for item in order.get_cart_items %}
+         <tr>
+           <td>{{ forloop.counter }}</td>
+           <td>
+             {{ item.product.name }}
+             <span class="pull-right">
+               <a href="{% url 'delete_item' item.id %}" data-balloon="remove this item from cart" class="text-danger" onclick="return confirm_delete();">
+                 <i class="fas fa-trash"></i>
+               </a>
+             </span>
+           </td>
+           <td>{{ item.product.price }}</td>
+         </tr>
+       {% empty %}
+         <tr>
+           <td colspan= 3> You have not added any items yet.</td>
+         </tr>
+       {% endfor %}
+       <tr>
+         {% if order.get_cart_total != None %}
+         <td colspan=2>
+           <strong class="pull-right">Order Total:</strong>
+         </td>
+         
+         <td colspan= 1>
+           $<strong>{{ order.get_cart_total }}</strong>
+         </td>
+         {% endif %}
+       </tr>
+       <tr>
+         <td colspan=1 >
+           <a style="border-color: #588061; color: white;font-weight: bold; background-color: #588061;" href="{% url 'vegbox-home' %}" class="btn btn-warning pull-left">
+             {% if order %}Continue Shopping{% else %}Add Items to Cart {% endif %}
+           </a> 
+         </td>
+         <td colspan=2>
+           {% if order.get_cart_items %}
+             <a style="border-color: #588061; color: white;font-weight: bold; background-color: #588061;" href="{% url 'checkout' %}" class="pull-right btn btn-primary">Proceed To Checkout</a>
+           {% endif %}
+         </td>
+       </tr>
+     </table>
+      
     </div>
-{% endblock %}
+  </section>
+<div style="padding: 20px;"></div>
+
+{% endblock %} 
+{% block scripts %}
+  {{ block.super }}
+  <script>
+  function confirm_delete(){
+    return confirm("Do you want to remove this item from cart?");
+  }
+  </script>
+{% endblock scripts %}
