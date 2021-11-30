@@ -2,102 +2,23 @@
 {% block content %}
 {% load static %}
 <div style="padding: 20px;"></div>
-<div style="margin-left: 30px; margin-right: 30px;">
-  <table style="width: 100%;">
-    <tr>
-      <td style="width: 20%;">
-        <div class="container">
-          <div class="card">
-            <img class="card-img-top" style="height: 175px;" src="{% static 'vegbox_app/milk.jpg' %}" alt="Card image" style="width:100%">
-            <div class="card-body" style="height: 100px;">
-              <div style="padding-bottom: 10px;" class="centered">
-                <h6 class="card-title" style="font-weight: bold; color: #588061; text-transform: uppercase;">Milk</h6>
-                <p style="font-weight: bold; color: #588061; text-transform: uppercase;">
-                  Price: ₹36.25 / L
-                </p>
-              </div>
-            </div>
-          </div>
+{{ message }}
+    <div style="padding-right: 5%; padding-left: 5%;" class="row">
+    {% for object in object_list %}
+        <div style="padding-bottom: 5%;" class="col-sm-3">
+          <img style="border-color: grey; height: 200px;" class="card-img-top" src="{{object.product_img.url}}" alt="Card image cap">            
+          <p>{{ object.name }}</p>
+            <p>Price: ${{ object.price }}</p>
+            {% if object in user.profile.ebooks.all %}
+            You own this
+            {% elif object in current_order_products %}
+            <a style="border-color: #588061; color: white;font-weight: bold; background-color: #588061;" href="{% url 'add_to_cart1' object.id %}" class="btn btn-warning">Add to Cart</a>
+            {% else %}
+            <a style="border-color: #588061; color: white;font-weight: bold; background-color: #588061;" href="{% url 'add_to_cart' object.id %}" class="btn btn-warning">Add to Cart</a>
+            {% endif %}
         </div>
-       <div class="centered">
-        <a href="#" style = "background-color:#588061; " class="btn btn-primary">Add To Cart</a>
-       </div>
-      </td>
-      <td style="width: 20%;">
-        <div class="container">
-          <div class="card">
-            <img class="card-img-top" style="height: 175px;" src="{% static 'vegbox_app/cheese.jpg' %}" alt="Card image" style="width:100%">
-            <div class="card-body" style="height: 100px;">
-              <div style="padding-bottom: 10px;" class="centered">
-                <h6 class="card-title" style="font-weight: bold; color: #588061; text-transform: uppercase;">Cheese</h6>
-                <p style="font-weight: bold; color: #588061; text-transform: uppercase;">
-                  Price: ₹36.25 / kg
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-       <div class="centered">
-        <a href="#" style = "background-color:#588061; " class="btn btn-primary">Add To Cart</a>
-       </div>
-      </td>
-      <td style="width: 20%;">
-        <div class="container">
-          <div class="card">
-            <img class="card-img-top" style="height: 175px;" src="{% static 'vegbox_app/paneer.jpg' %}" alt="Card image" style="width:100%">
-            <div class="card-body" style="height: 100px;">
-              <div style="padding-bottom: 10px;" class="centered">
-                <h6 class="card-title" style="font-weight: bold; color: #588061; text-transform: uppercase;">Paneer</h6>
-                <p style="font-weight: bold; color: #588061; text-transform: uppercase;">
-                  Price: ₹36.25 / kg
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-       <div class="centered">
-        <a href="#" style = "background-color:#588061; " class="btn btn-primary">Add To Cart</a>
-       </div>
-      </td>
-      <td style="width: 20%;">
-        <div class="container">
-          <div class="card">
-            <img class="card-img-top" style="height: 175px;" src="{% static 'vegbox_app/dahi.jpg' %}" alt="Card image" style="width:100%">
-            <div class="card-body" style="height: 100px;">
-              <div style="padding-bottom: 10px;" class="centered">
-                <h6 class="card-title" style="font-weight: bold; color: #588061; text-transform: uppercase;">Curd</h6>
-                <p style="font-weight: bold; color: #588061; text-transform: uppercase;">
-                  Price: ₹36.25 / kg
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-       <div class="centered">
-        <a href="#" style = "background-color:#588061; " class="btn btn-primary">Add To Cart</a>
-       </div>
-      </td>
-      <td style="width: 20%;">
-        <div class="container">
-          <div class="card">
-            <img class="card-img-top" style="height: 175px;" src="{% static 'vegbox_app/butter.jpg' %}" alt="Card image" style="width:100%">
-            <div class="card-body" style="height: 100px;">
-              <div style="padding-bottom: 10px;" class="centered">
-                <h6 class="card-title" style="font-weight: bold; color: #588061; text-transform: uppercase;">Butter</h6>
-                <p style="font-weight: bold; color: #588061; text-transform: uppercase;">
-                  Price: ₹36.25 / kg
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-       <div class="centered">
-        <a href="#" style = "background-color:#588061; " class="btn btn-primary">Add To Cart</a>
-       </div>
-      </td>
-    </tr>
-  </table>
-</div>
+    {% endfor %}
+    </div>
 <div style="padding: 20px;"></div>
 
 {% endblock %} 

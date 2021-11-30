@@ -22,14 +22,11 @@
     <ul class="navbar-nav">
       {% if user.is_authenticated %}
       <li class="nav-item">
-        <a style="color: white;" class="nav-link" href="{% url 'vegbox-home' %}">HOME</a>
+        <a style="color: white;" class="nav-link" href="{% url 'vegbox-home' %}">FRUIT</a>
       </li>
         <li class="nav-item">
-          <a style="color: white;" class="nav-link" href="{% url 'vegbox-fruits' %}">FRUITS</a>
+          <a style="color: white;" class="nav-link" href="{% url 'vegbox-fruits' %}">VEGGIES</a>
         </li>
-        <li class="nav-item">
-            <a style="color: white;" class="nav-link" href="#">VEGGIES</a>
-          </li>
         <li class="nav-item">
           <a style="color: white;" class="nav-link" href="{% url 'vegbox-dairy' %}">DAIRY</a>
         </li>

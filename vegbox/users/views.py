@@ -60,7 +60,7 @@ def product_list_dairy(request):
         'current_order_products': current_order_products
     }
 
-    return render(request, "vegbox_app/home.html", context)
+    return render(request, "vegbox_app/dairy.html", context)
 
 from django.shortcuts import render, get_object_or_404
 
@@ -95,18 +95,7 @@ def add_to_cart(request, **kwargs):
     # show confirmation message and redirect back to the same page
     messages.info(request, "item added to cart")
     return redirect(reverse('vegbox-home'))
-def add_to_cart1(request, **kwargs):
-    user_profile = get_object_or_404(Profile, user=request.user)
-    product = Product_Veggie.objects.filter(id=kwargs.get('item_id', "")).first() or Product_Veggie.objects.filter(id=kwargs.get('item_id', "")).first() or Product_Dairy.objects.filter(id=kwargs.get('item_id', "")).first()
-    if product in request.user.profile.ebooks.all():
-        messages.info(request, 'You already own this ebook')
-        return redirect(reverse('product-list')) 
-    order_item, status = OrderItem.objects.get_or_create(product=product)
-    user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
-    user_order.items.add(order_item)
-    if status:
-        user_order.ref_code = generate_order_id()
-        user_order.save()
+
 
     # show confirmation message and redirect back to the same page
     messages.info(request, "item added to cart")
@@ -150,7 +139,7 @@ def order_details1(request, **kwargs):
     context = {
         'order': existing_order
     }
-    return render(request, 'vegbox_app/cart.html', context)
+    return render(request, 'vegbox_app/checkout.html', context)
 
 def register(request):
     if request.method == 'POST':

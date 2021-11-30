@@ -14,7 +14,7 @@
             {% elif object in current_order_products %}
             <a style="border-color: #588061; color: white;font-weight: bold; background-color: #588061;" href="{% url 'add_to_cart1' object.id %}" class="btn btn-warning">Add to Cart</a>
             {% else %}
-            <a style="border-color: #588061; color: white;font-weight: bold; background-color: #588061;" href="{% url 'add_to_cart1' object.id %}" class="btn btn-warning">Add to Cart</a>
+            <a style="border-color: #588061; color: white;font-weight: bold; background-color: #588061;" href="{% url 'add_to_cart' object.id %}" class="btn btn-warning">Add to Cart</a>
             {% endif %}
         </div>
     {% endfor %}

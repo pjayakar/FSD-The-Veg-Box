@@ -10,7 +10,6 @@ urlpatterns = [
     path('register_details/', user_views.register_details, name='vegbox-details'),
     path('order_summary/',user_views.order_details,name='order_summary'),
     path('add_to_cart/(?P<item_id>[-\w]+)/$',user_views.add_to_cart,name='add_to_cart'),
-    path('add_to_cart1/(?P<item_id>[-\w]+)/$',user_views.add_to_cart,name='add_to_cart1'),
     url('^item/delete/(?P<item_id>[-\w]+)/$',user_views.delete_from_cart,name='delete_item'),
     path('checkout/',user_views.order_details1,name='checkout'),
 ]
