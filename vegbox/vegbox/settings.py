@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9b=)27-u($#%&068bnh_*0mo5c#uiztsjnw^(b7sl$jujc+43d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'vegbox_app.apps.VegboxAppConfig',
-    'users.apps.UsersConfig',
+    'vegbox_app',
+    'users',
     'crispy_forms',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
