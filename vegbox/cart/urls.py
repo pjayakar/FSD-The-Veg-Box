@@ -1,8 +1,8 @@
 from django.urls import path
 from cart.views import ProductDetailView, CheckoutView, PaymentView, PromoCodeView, checkout_success, increase_product_in_cart, remove_from_cart, decrease_product_in_cart, CartDetailView, AddToCartAjax
-app_name = 'core'
+# app_name = 'core'
 
-# app_name = "cart"
+app_name = "cart"
 
 urlpatterns = [
     path('', CartDetailView.as_view(), name='show-cart'),
