@@ -82,7 +82,7 @@ def my_profile(request):
 @login_required()
 def add_to_cart(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
-    product = Product.objects.filter(id=kwargs.get('item_id', "")).first() or Product_Veggie.objects.filter(id=kwargs.get('item_id', "")).first() or Product_Dairy.objects.filter(id=kwargs.get('item_id', "")).first()
+    product = Product.objects.filter(id=kwargs.get('item_id', "")).first() 
     if product in request.user.profile.ebooks.all():
         messages.info(request, 'You already own this ebook')
         return redirect(reverse('product-list'))
@@ -96,12 +96,22 @@ def add_to_cart(request, **kwargs):
     # show confirmation message and redirect back to the same page
     messages.info(request, "item added to cart")
     return redirect(reverse('vegbox-home'))
-
+def add_to_cart(request, **kwargs):
+    user_profile = get_object_or_404(Profile, user=request.user)
+    product = Product.objects.filter(id=kwargs.get('item_id', "")).first() 
+    if product in request.user.profile.ebooks.all():
+        messages.info(request, 'You already own this ebook')
+        return redirect(reverse('vegbox-home'))
+    order_item, status = OrderItem.objects.get_or_create(product=product)
+    user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
+    user_order.items.add(order_item)
+    if status:
+        user_order.ref_code = generate_order_id()
+        user_order.save()
 
     # show confirmation message and redirect back to the same page
     messages.info(request, "item added to cart")
     return redirect(reverse('vegbox-home'))
-
 @login_required()
 def delete_from_cart(request, item_id):
     item_to_delete = OrderItem.objects.filter(pk=item_id)
@@ -139,7 +149,12 @@ def order_details1(request, **kwargs):
         'order': existing_order
     }
     return render(request, 'vegbox_app/checkout.html', context)
-
+def invoice(request, **kwargs):
+    existing_order = get_user_pending_order(request)
+    context = {
+        'order': existing_order
+    }
+    return render(request,'vegbox_app/invoice.html')
 from django.http import HttpResponse
 from django.views.generic import View
 

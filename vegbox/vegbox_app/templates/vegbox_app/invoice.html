@@ -1,39 +1,124 @@
 {% extends 'vegbox_app/header.html' %}
 {% block content %}
 {% load static %}
+<div style="padding: 20px;"></div>
+<div id="invoice1" class="page-content container">
+    <div class="page-header text-blue-d2">
+        <h1 class="page-title text-secondary-d1">
+            Invoice
+            <small class="page-info">
+                <i class="fa fa-angle-double-right text-80"></i>
+                ID: #111-222
+            </small>
+        </h1>
 
- <section>
-   <div class="row">
-    <h1>Invoice</h1><hr>
-    <table class="table table-hover table-bordered ">
-        <tr >
-          <th align="left">no.</th>
-          <th align="left">Item</th>
-          <th align="left">Price</th>
-        </tr>
-        {% for item in order.get_cart_items %}
-          <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>
-              {{ item.product.name }}
-              
-            </td>
-            <td>{{ item.product.price }}</td>
-          </tr>
-        
-        {% endfor %}
-        <tr>
-          {% if order.get_cart_total != None %}
-          <td colspan=2>
-            <strong class="pull-right">Order Total:</strong>
-          </td>
-          
-          <td colspan= 1>
-            <strong>{{ order.get_cart_total }}</strong>
-          </td>
-          {% endif %}
-        </tr></table>
+        <div class="page-tools">
+            <div class="action-buttons">
+                <a style="border-color: red;" onclick="generatePDF()" class="btn bg-white btn-light mx-1px text-95" href="#" data-title="PDF">
+                    <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
+                    Export
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container px-0">
+        <div class="row mt-4">
+            <div class="col-12 col-lg-10 offset-lg-1">
+                <hr class="row brc-default-l1 mx-n1 mb-4" />
+                <div class="row">
+                    <div class="col-sm-6">
+                        
+                    </div>
+                    <!-- /.col -->
+
+                    <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
+                        <hr class="d-sm-none" />
+                        <div class="text-grey-m2">
+                            <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
+                                Invoice
+                            </div>
+
+                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> #111-222</div>
+
+                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> Oct 12, 2019</div>
+
+                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-warning badge-pill px-25">Unpaid</span></div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+                <div class="mt-4">
+                    <div class="row text-600 text-white bgc-default-tp1 py-25">
+                        <div class="d-none d-sm-block col-1">#</div>
+                        <div class="col-9 col-sm-5">Item</div>
+                        <div class="col-2">Amount</div>
+                    </div>
+
+                    <div class="text-95 text-secondary-d3">
+                      {% for item in order.get_cart_items %}                        <div class="row mb-2 mb-sm-0 py-25">
+                            <div class="d-none d-sm-block col-1">{{ forloop.counter }}</div>
+                            <div class="col-9 col-sm-5">{{ item.product.name }}</div>
+                            <div class="col-2 text-secondary-d2">{{ item.product.price }}</div>
+                        </div>
+                      {% endfor %}
+                    </div>
+
+                    <div class="row border-b-2 brc-default-l2"></div>
 
 
-</div></section>
-      {% endblock %}
+                    <div class="row mt-3">
+                        <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0">
+                        </div>
+
+                        <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
+                            <div class="row my-2">
+                                <div class="col-7 text-right">
+                                    SubTotal
+                                </div>
+                                <div class="col-5">
+                                    <span class="text-120 text-secondary-d1">$2,250</span>
+                                </div>
+                            </div>
+
+                            <div class="row my-2">
+                                <div class="col-7 text-right">
+                                    Tax (10%)
+                                </div>
+                                <div class="col-5">
+                                    <span class="text-110 text-secondary-d1">$225</span>
+                                </div>
+                            </div>
+
+                            <div class="row my-2 align-items-center bgc-primary-l3 p-2">
+                                <div class="col-7 text-right">
+                                    Total Amount
+                                </div>
+                                <div class="col-5">
+                                    <span class="text-150 text-success-d3 opacity-2">$2,475</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div>
+                        <span class="text-secondary-d1 text-105">Thank you for your business</span>
+                        <a href="#" style="background-color: #588061;" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0">DONE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function generatePDF() {
+        const element = document.getElementById('invoice1');
+        html2pdf().from(element).save();
+    }
+</script>
+<div style="padding: 20px;"></div>
+
+{% endblock %} 
