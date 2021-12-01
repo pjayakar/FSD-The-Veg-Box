@@ -156,11 +156,12 @@ class GeneratePdf(View):
         context = {
             'order': existing_order
         }
-        #getting the template
+        #getting the template  6.26
         # pdf = render_to_pdf('vegbox_app/invoice.html',context)
         pdf = html2pdf('vegbox_app/invoice.html',context)
          #rendering the template
         return HttpResponse(pdf, content_type='application/pdf')
+        # return render(request, 'users/register.html',context)
 
 
 def register(request):
