@@ -64,7 +64,25 @@ def convert_html_to_pdf(source_html, output_filename):
 
     # return False on success and True on errors
     return pisa_status.err
+def html2pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    result = BytesIO()
+    output_filename = "test.pdf"
+    result_file = open(output_filename, "w+b")
 
+    source_html = html
+    # html4pdf = html
+    # source_html = html4pdf
+    pisa_status = pisa.CreatePDF(
+            source_html,                # the HTML to convert
+            dest=result_file, link_callback=link_callback
+            )
+    #  #This part will create the pdf.
+    #  pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    # if not pdf.err:    return HttpResponse(result.getvalue(), content_type='application/pdf')
+    if not pisa_status.err:    return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
 # # Main program
 # if __name__ == "__main__":
 #     pisa.showLogging()

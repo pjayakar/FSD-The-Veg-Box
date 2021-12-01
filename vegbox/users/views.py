@@ -7,6 +7,7 @@ from .forms import UserRegisterForm, ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Register,Product, Profile, Order,OrderItem, Transaction, Product_Dairy, Product_Veggie
+from .utils import *
 from django.urls import reverse
 import random
 import string
@@ -156,8 +157,8 @@ class GeneratePdf(View):
             'order': existing_order
         }
         #getting the template
-        pdf = render_to_pdf('vegbox_app/invoice.html',context)
-
+        # pdf = render_to_pdf('vegbox_app/invoice.html',context)
+        pdf = html2pdf('vegbox_app/invoice.html',context)
          #rendering the template
         return HttpResponse(pdf, content_type='application/pdf')
 
