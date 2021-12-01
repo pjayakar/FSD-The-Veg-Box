@@ -11,6 +11,7 @@ urlpatterns = [
     path('register/', users_views.register_details, name='vegbox-registerdetails'),
     path('', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    # path('invoice/',user_views.GeneratePdf.as_view(),name='invoice'),
 ]
 from django.conf import settings
 if settings.DEBUG:

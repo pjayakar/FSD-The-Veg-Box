@@ -12,6 +12,5 @@ urlpatterns = [
     path('add_to_cart/(?P<item_id>[-\w]+)/$',user_views.add_to_cart,name='add_to_cart'),
     url('^item/delete/(?P<item_id>[-\w]+)/$',user_views.delete_from_cart,name='delete_item'),
     path('checkout/',user_views.order_details1,name='checkout'),
-    # path('invoice/',user_views.GeneratePdf.as_view(),name='invoice'),
-    path('index/',user_views.product_list,name='index'),
+    path('invoice/',user_views.GeneratePdf.as_view(),name='invoice'),
 ]

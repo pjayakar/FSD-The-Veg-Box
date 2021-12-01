@@ -97,7 +97,7 @@ def add_to_cart(request, **kwargs):
     # check if the user already owns this product
     if product in request.user.profile.ebooks.all():
         messages.info(request, 'You already own this ebook')
-        return redirect(reverse('product-list')) 
+        return redirect(reverse('product-list'))
     # create orderItem of the selected product
     order_item, status = OrderItem.objects.get_or_create(product=product)
     # create order associated with the user
@@ -140,8 +140,6 @@ def order_details(request, **kwargs):
 
 @login_required()
 def checkout(request, **kwargs):
-    
-
     return render(request, 'myapp/checkout.html')
 
 def register(request):
@@ -162,6 +160,5 @@ def register_details(request):
             messages.success(request, f'Account has been created!')
             return redirect('login')
     else:
-        form1 = ProfileForm()   
+        form1 = ProfileForm()
     return render(request, 'users/register_details.html', {'form': form1})
-     

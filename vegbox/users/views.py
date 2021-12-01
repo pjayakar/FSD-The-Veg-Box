@@ -84,7 +84,7 @@ def add_to_cart(request, **kwargs):
     product = Product.objects.filter(id=kwargs.get('item_id', "")).first() or Product_Veggie.objects.filter(id=kwargs.get('item_id', "")).first() or Product_Dairy.objects.filter(id=kwargs.get('item_id', "")).first()
     if product in request.user.profile.ebooks.all():
         messages.info(request, 'You already own this ebook')
-        return redirect(reverse('product-list')) 
+        return redirect(reverse('product-list'))
     order_item, status = OrderItem.objects.get_or_create(product=product)
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
     user_order.items.add(order_item)
@@ -129,8 +129,6 @@ def order_details(request, **kwargs):
 
 @login_required()
 def checkout(request, **kwargs):
-    
-
     return render(request, 'vegbox_app/checkout.html')
 
 @login_required()
@@ -140,6 +138,29 @@ def order_details1(request, **kwargs):
         'order': existing_order
     }
     return render(request, 'vegbox_app/checkout.html', context)
+
+from django.http import HttpResponse
+from django.views.generic import View
+
+#importing get_template from loader
+from django.template.loader import get_template
+
+#import render_to_pdf from util.py
+from .utils import render_to_pdf
+
+#Creating our view, it is a class based view
+class GeneratePdf(View):
+     def get(self, request, *args, **kwargs):
+        existing_order = get_user_pending_order(request)
+        context = {
+            'order': existing_order
+        }
+        #getting the template
+        pdf = render_to_pdf('vegbox_app/invoice.html',context)
+
+         #rendering the template
+        return HttpResponse(pdf, content_type='application/pdf')
+
 
 def register(request):
     if request.method == 'POST':
@@ -159,6 +180,6 @@ def register_details(request):
             messages.success(request, f'Account has been created!')
             return redirect('login')
     else:
-        form1 = ProfileForm()   
+        form1 = ProfileForm()
     return render(request, 'users/register_details.html', {'form': form1})
-     
+
