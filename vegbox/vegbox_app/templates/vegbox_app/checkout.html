@@ -29,35 +29,6 @@
     <div class="container px-0">
         <div class="row mt-4">
             <div class="col-12 col-lg-10 offset-lg-1">
-                <hr class="row brc-default-l1 mx-n1 mb-4" />
-                <div class="row">
-                    <div class="col-sm-6">
-                    </div>
-                    <!-- /.col -->
-
-                    <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
-                        <hr class="d-sm-none" />
-                        <div class="text-grey-m2">
-                            <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
-                                Invoice
-                            </div>
-
-                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> #111-222</div>
-
-                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span><p id="date"></p></div>
-                            <script>
-                                n =  new Date();
-                                y = n.getFullYear();
-                                m = n.getMonth() + 1;
-                                d = n.getDate();
-                                document.getElementById("date").innerHTML = m + "/" + d + "/" + y;                              
-                            </script>
-                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-warning badge-pill px-25">Unpaid</span></div>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                </div>
-
                 <div class="mt-4">
                     <div class="row text-600 text-white bgc-default-tp1 py-25">
                         <div class="d-none d-sm-block col-1">#</div>
@@ -66,7 +37,8 @@
                     </div>
 
                     <div class="text-95 text-secondary-d3">
-                      {% for item in order.get_cart_items %}                        <div class="row mb-2 mb-sm-0 py-25">
+                      {% for item in order.get_cart_items %}                        
+                      <div class="row mb-2 mb-sm-0 py-25">
                             <div class="d-none d-sm-block col-1">{{ forloop.counter }}</div>
                             <div class="col-9 col-sm-5">{{ item.product.name }}</div>
                             <div class="col-2 text-secondary-d2">${{ item.product.price }}</div>

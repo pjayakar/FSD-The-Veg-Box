@@ -10,7 +10,7 @@ from django.db import models
 User = get_user_model()
 
 class Register(models.Model):
-    email = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     address = models.CharField(max_length=150)
